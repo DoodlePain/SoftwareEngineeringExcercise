@@ -1,0 +1,47 @@
+{
+    "BTC": {
+        "value": "bitcoin",
+        "label": "Bitcoin",
+        "id": "BTC"
+    },
+    "LTC": {
+        "value": "litecoin",
+        "label": "Litecoin",
+        "id": "LTC"
+    },
+    "LSK": {
+        "value": "lisk",
+        "label": "Lisk",
+        "id": "LSK"
+    },
+    "XMR": {
+        "value": "monero",
+        "label": "Monero",
+        "id": "XMR"
+    },
+    "XRP": {
+        "value": "ripple",
+        "label": "Ripple",
+        "id": "XRP"
+    },
+    "DOGE": {
+        "value": "dogecoin",
+        "label": "Dogecoin",
+        "id": "DOGE"
+    },
+    "DASH": {
+        "value": "dash",
+        "label": "Dash",
+        "id": "DASH"
+    },
+    "ETH": {
+        "value": "ethereum",
+        "label": "Ethereum",
+        "id": "ETH"
+    },
+    "SHIFT": {
+        "value": "shift",
+        "label": "Shift",
+        "id": "SHIFT"
+    }
+}
