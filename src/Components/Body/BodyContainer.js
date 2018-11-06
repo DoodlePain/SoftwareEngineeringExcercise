@@ -105,7 +105,6 @@ class BodyContainer extends Component {
                         <div>
                             <Col xs={6} md={4} />
                             <Col xs={6} md={4} >
-                                {/* <AddCurrency actual={this.state.actual} amount={(this.state.database !== null && this.state.actual !== null) ? this.state.database[this.state.actual].amount : 0} /> */}
                                 <CurrencyData
                                     actual={this.state.actual}
                                     amount={(this.state.database !== null && this.state.actual !== null) ? this.state.database[this.state.actual].amount : 0}

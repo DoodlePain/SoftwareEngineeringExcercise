@@ -1,44 +1,118 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# Esercizio di IS
 
-In the project directory, you can run:
+  
 
-### `npm start`
+## Problematiche iniziali
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+  
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+Il codice iniziale presentava alcuni problemi di Bad Smell e di codice strutturato male.
 
-### `npm test`
+  
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Struttura
 
-### `npm run build`
+  
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+La struttura generale iniziale era sbagliata ed approssimativa,
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+la maggior parte del codice era scritta all'interno del file principale App.js.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Questo comportava una leggibilita' scarsa e un debug peggiore ancora.
 
-### `npm run eject`
+Per questo e' stato svolto un lavoro di refactoring con una struttura ben precisa ad albero.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Lo scopo e' quella di minimizzare la grandezza delle classi rendendo facile un futuro Upgrade.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+  
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+La cartella src (Source) contiene al suo interno vari file essenziali quali:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+* index.js e' la pagina principale, questa si collega all'index.html presente nella cartella public.
 
-## Learn More
+* App.js e' il file figlio di index.js, una sorta di container per il body della pagina finale, qui saranno asseriti variabili e metodi utili a piu' componenti interni.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+* Utils e' una cartella contenente i file statici come i Token per le API e i file JSON.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+* Components e' una cartella contente i componenti interni alla pagina, divisi per categorie (Header, Body).
+
+  
+
+Questa struttura ci consente una gestione modulare del codice, consentendoci di rimpiazzare facilmente i file senza avere grossi problemi.
+
+  
+
+# Componenti
+
+  
+
+Ogni componente e' costituito da un Container che racchiude i vari componenti interni.
+
+Nello specifico il Body e' composto da:
+
+* BodyContainer.js e' un componente che racchiude i possibili frammenti di codice che saranno usati all'interno del body, questo contiene tutti i componenti in comune con i figli.
+
+* Currency e' la cartella che contiene la parte della gestione delle cryptocurrency.
+
+* Currency/CurrencyData.js e' il file in cui vengono ricavati dinamicamente i dati delle currency attraverso le api e il database.
+
+  
+
+L'header invece e' strutturato invece in maniera piu' semplice, contiene soltanto un file chiamato Header.js.
+
+  
+
+### BodyContainer.js
+
+Nello specifico il file Body/BodyContainer.js ha le seguenti funzioni:
+
+*  Applica lo stile all'interno body sfruttando Bootstrap e Css
+
+*  Contiene dei dati generali utilizzati piu' volte:
+
+    * this.state.total e' il valore totale delle valute
+    
+    * this.state.actual e' la valuta selezionata al momento
+    
+    * this.state.database e' un oggetto contenente tutte le informazioni relative alle valute in possesso
+    
+    * this.state.modify e' flag che determina lo stato di modifica di una specifica cryptovaluta
+
+* Contiene delle funzioni generali utilizzati piu' volte:
+
+    * setCrypto(string) cambia la valuta selezionata al momento
+
+    *  applyModifies(number) modifica l'amount di una specifica valuta, impostandola localmente e in seguito inviandola al  database Firebase.
+
+* Ogni volta che viene selezionata una valuta diversa il BodyContainer ri-genera dinamicamente i figli in base alla valuta selezionata.
+
+* Le valute selezionabili sono ottenute dal database Firebase.
+
+  
+
+### CurrencyData.js
+
+Nello specifico il file Body/Currency/CurrencyData.js ha le seguenti funzioni:
+
+* Contiene le specifiche di ogni valuta posseduta
+
+* Gestisce la modifica dell'amount di una valuta localmente per poi inviarla al padre ed applicare le modifiche
+
+* Contiene delle funzioni generali utilizzati piu' volte:
+
+    * setCrypto(string) cambia la valuta selezionata al momento
+
+    * applyModifies(number) modifica l'amount di una specifica valuta, impostandola localmente e in seguito inviandola al database Firebase.
+
+# Tecnologie
+
+In questo progetto sono state usate le seguenti tecnologie:
+
+- React.js, framework Front-end
+
+- Firebase, cloud database
+
+- Cryptonator, API per il fetch dei dati in real-time delle valute
+
+- Bootstrap, toolkit per la gestione dello stile
